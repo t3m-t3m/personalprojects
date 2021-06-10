@@ -1,7 +1,9 @@
 import os
+import keyboard
 
 
 from table_generator import TableGenerator
+from time import sleep
 
 
 def hat(tries_left):
@@ -19,13 +21,36 @@ def main():
     word = None
 
     os.system("gnome-terminal --tab")
-    while 1:
-        os.system("clear")
-        hat(tries_left)
-        print("\033[32m\033[1m")
-        print(table_generator.table_view, sep=' ')
-        word = input().upper()
-        table_generator.highlight_word(word)
+    os.system("clear")
+    hat(tries_left)
+    print("\033[32m\033[1m")
+    print(table_generator.table_view)
+
+    while True:
+        if keyboard.is_pressed('tab'):
+            table_generator.highlight_next()
+            os.system("clear")
+            hat(tries_left)
+            print("\033[32m\033[1m")
+            print(table_generator.table_view)
+            os.system('aplay ./res/sounds/ui_terminal_charscroll_lp.wav')
+            sleep(0.2)
+        elif keyboard.is_pressed('up'):
+            table_generator.highlight_previous()
+            os.system("clear")
+            hat(tries_left)
+            print("\033[32m\033[1m")
+            print(table_generator.table_view)
+            os.system('aplay ./res/sounds/ui_terminal_charscroll_lp.wav')
+            sleep(0.2)
+        elif keyboard.is_pressed('down'):
+            table_generator.highlight_next()
+            os.system("clear")
+            hat(tries_left)
+            print("\033[32m\033[1m")
+            print(table_generator.table_view)
+            os.system('aplay ./res/sounds/ui_terminal_charscroll_lp.wav')
+            sleep(0.2)
 
 
 if __name__ == '__main__':
